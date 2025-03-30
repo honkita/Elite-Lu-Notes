@@ -1,0 +1,6 @@
+RADIO = OFF,
+OFF = (on -> TF),
+TF = (off -> OFF | scan -> SCAN | reset -> TF),
+SCAN = (off -> OFF | scan -> SCAN | reset -> TF | scan -> CURRENT | end -> BF),
+BF = (off -> OFF | reset -> TF),
+CURRENT = (off -> OFF | scan -> SCAN).

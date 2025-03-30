@@ -1,0 +1,16 @@
+SMOKER_T = (get_paper -> get_match -> roll_cigarette -> smoke_cigarette -> SMOKER_T).
+SMOKER_P = (get_tobacco -> get_match -> roll_cigarette -> smoke_cigarette -> SMOKER_P).
+SMOKER_M = (get_tobacco -> get_paper -> roll_cigarette -> smoke_cigarette -> SMOKER_M).
+TOBACCO = (delivered -> picked -> TOBACCO).
+PAPER = (delivered -> picked -> PAPER).
+MATCH = (delivered -> picked -> MATCH).
+AGENT_T = (can_deliver -> deliver_paper -> deliver_match -> AGENT_T).
+AGENT_P = (can_deliver -> deliver_tobacco -> deliver_match -> AGENT_P).
+AGENT_M = (can_deliver -> deliver_tobacco -> deliver_paper -> AGENT_M).
+RULE = (can_deliver -> smoking_completed -> RULE).
+
+||SMOKERS = (t:SMOKER_T || p:SMOKER_P || m:SMOKER_M).
+||RESOURCES = ({p,m}::TOBACCO || {t,m}::PAPER || {t,p}::MATCH).
+||AGENT_RULE = (tt:AGENT_T||pp:AGENT_P||mm:AGENT_M||{tt,pp,mm} :: RULE).
+||COMP = (SMOKERS||RESOURCES||AGENT_RULE).
+

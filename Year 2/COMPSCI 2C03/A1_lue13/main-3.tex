@@ -1,0 +1,178 @@
+\documentclass{article}
+\usepackage[utf8]{inputenc}
+\usepackage{algorithm}	
+\usepackage[english]{babel}
+\usepackage{algpseudocode} 
+\usepackage{amsmath} 
+
+\title{Assignment 1}
+\author{Elite Lu}
+\date{October 5, 2022}
+
+\begin{document}
+
+\maketitle
+
+\section{Question 1}
+    \subsection{}
+    \begin{algorithm}
+    \begin{algorithmic}[1]
+    		\Procedure{$Brackets$}{$L, S$} \Comment{L is the inputted string, S is an empty stack}
+    		\For {i from 1 to L.length}
+    		    \If {L[i] = '('}
+    		        \State $S.push('(')$
+    		    \ElsIf {L[i] = ')'}
+    		        \If{$S.IsEmpty()$}
+    		            \State \Return $FALSE$
+    		        \Else
+    		            \State $S.pop()$
+    		        \EndIf
+    		    \EndIf
+    		\EndFor
+    		\State \Return $S.isEmpty()$
+    		\EndProcedure
+    	\end{algorithmic}
+    	\caption{Determining if the equation's brackets are correct}
+    \end{algorithm}
+    
+    \subsection{}
+        The time complexity for the worst case scenario would be $O(n)$. This i because the worst case scenario is where the for loop runs an $n$ number of times, where $n$ represents the length of the string. This string would only contain the brackets, and the brackets are arranged such that there are the same number of left and right braces. The time function that would be derived would be $T(n) = c_f + c_{13} + (c_{2:12}) n$. From this time function, I determined that the time complexity for the worst case scenario would be $O(n)$. 
+    \subsection{}
+        The code will be provided as A1Q1.java.
+
+\section{Question 2}
+    According to the definition of $\Theta(f(n))$, this is only true when there exists two arbitrary coefficients, $c_1 > 0$ and $c_2 > 0$ and an $n_0$ point, T(n) is sandwiched in between the function multiplied by the coefficients when $n$ is larger than $n_0$. 
+    Because of this, I will prove this by showing this property and disprove by contradiction. When proving, I will look at the coefficients with the largest $n$ term since that term would dominate and find some coefficient to fit this scenario and an $n_0$ value to make the statements true after that term. 
+    For the limits, if the value from the limits is between 0 and $\infty$ exclusive, then it is $\Theta(n)$. However, if it is $0$ or $\infty$, then it is not.
+    
+    
+    \subsection{$$\frac{64n^4 + 2n + 3}{n + 1} \in \Theta (n^3)$$}
+        \subsubsection{}
+            To prove that the the function is in $\Theta (n^3)$, I will find $c_1 > 0$ and $c_2 > 0$ and $n_0$ points. This is shown below:
+            \begin{align*}
+                c_1 \cdot f(n) \leq T(n) \leq c_2 \cdot f(n)\\
+                \\
+                c_1 \cdot f(n) \leq T(n)\\
+                c_1 \cdot n^3 \leq \frac{65n^4 + 2n + 3}{n + 1}\\
+                c_1 \leq \frac{65n^4 + 2n + 3}{n^3 (n + 1)}\\
+                c_1 \leq \frac{65n^4 + 2n + 3}{n^4 + n^3}\\
+                c_1 \leq 65\\
+                c_1 = 63\\
+                \\
+                T(n) \leq c_2 \cdot f(n)\\
+                \frac{65n^4 + 2n + 3}{n + 1} \leq c_2 \cdot n^3\\
+                \frac{65n^4 + 2n + 3}{n^3 (n + 1)} \leq c_2\\
+                \frac{65n^4 + 2n + 3}{n^4 + n^3} \leq c_2\\
+                65 \leq c_2\\
+                c_2 = 70\\
+                n_0 = 1\\
+            \end{align*}
+            Therefore, because there exists $c_1, c_2, n_0$, therefore the function provided is in $\Theta (n^3)$
+        \subsubsection{}
+            \begin{align*}
+                \lim_{n\to\infty} \frac{\frac{65n^4 + 2n + 3}{n + 1}}{n^3}
+                &= \lim_{n\to\infty} \frac{\frac{65n^4}{n^3} + \frac{2n}{n^3} + \frac{3}{n^3}}{n + 1}\\
+                &= \lim_{n\to\infty} \frac{65n + \frac{2}{n^2} + \frac{3}{n^3}}{n + 1}\\
+                &= \lim_{n\to\infty} \frac{\frac{65n}{n} + \frac{\frac{2}{n^2}}{n} + \frac{\frac{3}{n^3}}{n}}{\frac{n}{n} + \frac{1}{n}}\\
+                &= \lim_{n\to\infty} \frac{65 + \frac{2}{n^3} + \frac{3}{n^4}}{1 + \frac{1}{n}}\\
+                &=\frac{65 + \frac{2}{\infty} + \frac{3}{\infty}}{1 + \frac{1}{\infty}}\\
+                &=\frac{65}{1}\\
+                &=65 \\
+            \end{align*}
+            Because the limit evaluates to $64$, the time complexity is in $\Theta(n^3)$
+            
+    \subsection{$$45n\log(n) + 2n + 1 \in \Theta(n\log(n))$$}
+        \subsubsection{}
+            To prove the function is in $\Theta(n\log(n))$, I will need to prove that the function is first in $O(n\log(n))$ and n $\Omega(n\log(n))$. I will determine two arbitrary constants and an $n_0$ value. I will look at the dominating value and find an appropriate constant.
+            
+            \begin{align*}
+                c_1 \cdot f(n) \leq T(n) \leq c_2 \cdot f(n)\\
+                \\
+                c_1 \cdot f(n) \leq T(n)\\
+                c_1 \cdot n\log(n) \leq 45n\log(n) + 2n + 1\\
+                c_1 \leq \frac{45n\log(n) + 2n + 1}{n\log(n)}\\
+                c_1 \leq 45 + \frac{2}{\log(n)} + \frac{1}{n\log(n)}\\
+                c_1 \leq 45\\
+                c_1 = 40\\
+                \\
+                T(n) \leq c_2 \cdot f(n)\\
+                45n\log(n) + 2n + 1 \leq c_2 \cdot n\log(n)\\
+                \frac{45n\log(n) + 2n + 1}{n\log(n)} \leq c_2\\
+                45 + \frac{2}{\log(n)} + \frac{1}{n\log(n)} \leq c_2\\
+                45 \leq c_2\\
+                c_2 = 55\\
+                n_0 = 2\\
+            \end{align*}
+            Therefore, because there exists $c_1, c_2, n_0$, therefore the function provided is in $\Theta (n\log(n))$
+        \subsubsection{}
+            \begin{align*}
+                \lim_{n\to\infty} \frac{45n\log(n) + 2n + 1}{n\log(n)}
+                &= \lim_{n\to\infty}\frac{\frac{45n\log(n)}{n\log(n)} + \frac{2n}{n\log(n)} + \frac{1}{n\log(n)}}{\frac{n\log(n)}{n\log(n)}}\\
+                &= \lim_{n\to\infty}(45 + \frac{2}{\log(n)} + \frac{1}{n\log(n)})\\
+                &= 45 + \frac{2}{\infty} + \frac{1}{\infty}\\
+                &= 45\\
+            \end{align*}
+            Because the limit evaluates to $45$, the time complexity is in $\Theta(n\log(n))$
+    \subsection{$n^2 \notin \Theta(\log(n))$}
+        \subsubsection{}
+            To prove by contradiction, I will examine the upper bound, which is where $T(n) \leq c_2 \cdot f(n)$. Let $c_2$ and $n_0$ be the least constants in the equation $n^2 \leq c_2 \cdot \log(n)$ Suppose when $n = e \cdot c_2$. With this, the equation simplifies to $c_2^2\cdot e^2 \leq c_2^2$, which is a contradiction for the upper bound. Because the upper bound does not hold, then therefore $n^2 \notin O(\log(n))$. Because of this, $n^2 \notin \Theta(\log(n))$ since $n^2$ must be in both $O(\log(n))$ and $\Omega(\log(n))$ to be in $\Theta(\log(n)$.
+        \subsubsection{}
+            \begin{align*}
+                \lim_{n\to\infty} \frac{n^2}{log(n)}
+                &\overset{\mathrm{H}}{=} \lim_{n\to\infty} \frac{2n}{\frac{1}{n}}\\
+                &= \lim_{n\to\infty} 2n^2\\
+                &= \infty\
+            \end{align*}
+            Because the limit evaluates to $\infty$, the time complexity is not in $\Theta(\log(n))$
+    \subsection{$n^n \notin \Theta(2^n)$}
+        \subsubsection{}
+            To prove by contradiction, I will examine the upper bound, which is where $T(n) \leq c_2 \cdot f(n)$. Let $c_2$ and $n_0$ be the least constants in the equation $n^n \leq c_2 \cdot 2^n$ Suppose when $n = c_2$. With this, the equation simplifies to $c_2^{c_2} \leq 2^{c_2}$, which is a contradiction for the upper bound since $c_2$ is larger than $2$. Because the upper bound does not hold, then therefore $n^n \notin O(2^n)$. Because of this, $n^n \notin \Theta(2^n)$ since $n^n$ must be in both $O(2^n)$ and $\Omega(2^n)$ to be in $\Theta(2^n)$.
+        \subsubsection{}
+            \begin{align*}
+                \lim_{n\to\infty} \frac{n^n}{2^n}
+                &= \lim_{n\to\infty} (\frac{n}{2})^n\\
+                &= (\frac{\infty}{2})^\infty\\
+                &= \infty^\infty\\
+                &= \infty\\
+            \end{align*}
+            Because the limit evaluates to $\infty$, the time complexity is not in $\Theta(2^n)$
+\section{Question 3}
+    \subsection{}
+        Note: if asc was 1, then it would just be normal comparisons. However, when asc is -1, multiplying the numbers by -1 reverses the order since the larger magnitude would result in a smaller negative number. This is why I used -1 and 1.
+        Also other note: The pseudocode may appear on the next page. 
+        \begin{algorithm}
+        \begin{algorithmic}[1]
+        		\Procedure{$Selection Sort$}{$D, S$} \Comment{D is the doubly linked list, S is a Boolean for ascending or descending; if S, then ascending and vice versa}
+        		\State asc = 1
+        		\If {S} 
+        		    \State asc = -1 \Comment Making asc -1 allows for reverse order
+        		\EndIf
+        		\State temp = D.head
+        		\While {temp $\neq$ NIL}
+        		    \State current = temp
+        		    \State swap = temp
+        		    \State other = temp.next
+        		    \While {other $\neq$ NIL}
+        		        \If {other.value * asc $<$ swap.value * asc}
+                            \State swap = other
+                        \EndIf
+                        \State other = other.next
+        		    \EndWhile
+        		    \If {current $\neq$ swap} 
+                        \State swap(current, swap)
+                    \EndIf
+        		\EndWhile
+        		\State \Return $D$
+        		\EndProcedure
+        	\end{algorithmic}
+        	\caption{Selection sort algorithm}
+        \end{algorithm}
+    \subsection{}
+        The worse case scenario would result in $O(n^2)$. This is because when the worst case occurs, that would mean the whole list is not in order and would require an $n$ number of swaps. The outer while loop would run $n$ times and the inner while loop runs $n$ minus the current number of loop runs from the outer while loop. The other statements would be dominated by this since worst case scenario, they run either $n$ number of times from the other loop or run once. The time function would be $T(n) = c_f + c_{2..6} + (c_{7..10} + c_{17..19})n + (c_{11..16})n^2$. As a result, inner and outer loops result in the $O(n^2)$ since the $n^2$ dominates as $n$ approaches infinity. 
+    \subsection{}
+        The code will be provided as A1Q3.java. A sample has been given. In addition to this, I realized that instead of saying .next or .prev is null, I can just check if the node is a head or a tail because the only cases where they are null is then the value is a head or a tail. I tried to cut down on lines of code by making auxiliary functions.
+        
+\State Note: I used equals signs for my pseudocode since the TAs were using that. 
+\end{document}
+
+

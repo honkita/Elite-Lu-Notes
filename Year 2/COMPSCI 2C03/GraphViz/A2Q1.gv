@@ -1,0 +1,58 @@
+graph{
+    node["shape" = none]
+    ranksep=1.6
+    layout=twopi;
+    l1[label=<n<SUP>2</SUP>>]
+    l2[label=<(n/3)<SUP>2</SUP>>]
+    l3[label=<(n/3)<SUP>2</SUP>>]
+    l4[label=<(n/3)<SUP>2</SUP>>]
+    l5[label=<(n/9)<SUP>2</SUP>>]
+    l6[label=<(n/9)<SUP>2</SUP>>]
+    l7[label=<(n/9)<SUP>2</SUP>>]
+    l8[label=<(n/9)<SUP>2</SUP>>]
+    l9[label=<(n/9)<SUP>2</SUP>>]
+    l10[label=<(n/9)<SUP>2</SUP>>]
+    l11[label=<(n/9)<SUP>2</SUP>>]
+    l12[label=<(n/9)<SUP>2</SUP>>]
+    l13[label=<(n/9)<SUP>2</SUP>>]
+    a0[label=<(n/27)<SUP>2</SUP>>]
+    a1[label=<(n/27)<SUP>2</SUP>>]
+    a2[label=<(n/27)<SUP>2</SUP>>]
+    a3[label=<(n/27)<SUP>2</SUP>>]
+    a4[label=<(n/27)<SUP>2</SUP>>]
+    a5[label=<(n/27)<SUP>2</SUP>>]
+    a6[label=<(n/27)<SUP>2</SUP>>]
+    a7[label=<(n/27)<SUP>2</SUP>>]
+    a8[label=<(n/27)<SUP>2</SUP>>]
+    a9[label=<(n/27)<SUP>2</SUP>>]
+    a10[label=<(n/27)<SUP>2</SUP>>]
+    a11[label=<(n/27)<SUP>2</SUP>>]
+    a12[label=<(n/27)<SUP>2</SUP>>]
+    a13[label=<(n/27)<SUP>2</SUP>>]
+    a14[label=<(n/27)<SUP>2</SUP>>]
+    a15[label=<(n/27)<SUP>2</SUP>>]
+    a16[label=<(n/27)<SUP>2</SUP>>]
+    a17[label=<(n/27)<SUP>2</SUP>>]
+    a18[label=<(n/27)<SUP>2</SUP>>]
+    a19[label=<(n/27)<SUP>2</SUP>>]
+    a20[label=<(n/27)<SUP>2</SUP>>]
+    a21[label=<(n/27)<SUP>2</SUP>>]
+    a22[label=<(n/27)<SUP>2</SUP>>]
+    a23[label=<(n/27)<SUP>2</SUP>>]
+    a24[label=<(n/27)<SUP>2</SUP>>]
+    a25[label=<(n/27)<SUP>2</SUP>>]
+    a26[label=<(n/27)<SUP>2</SUP>>]
+    l1 -- {l2, l3, l4}
+    l2 -- {l5, l6, l7}
+    l3 -- {l8, l9, l10}
+    l4 -- {l11, l12, l13}
+    l5 -- {a0, a1, a2}
+    l6 -- {a3, a4, a5}
+    l7 -- {a6, a7, a8}
+    l8 -- {a9, a10, a11}
+    l9 -- {a12, a13, a14}
+    l10 -- {a15, a16, a17}
+    l11 -- {a18, a19, a20}
+    l12 -- {a21, a22, a23}
+    l13 -- {a24, a25, a26}
+}

@@ -1,0 +1,5 @@
+HOTEL = (request -> REQUESTED),
+REQUESTED = (nospace -> WAITING | space -> CONFIRMED),
+WAITING = (leave -> STOP | space -> CONFIRMED),
+CONFIRMED = (pay -> PAID | leave -> STOP),
+PAID = (leave -> STOP).

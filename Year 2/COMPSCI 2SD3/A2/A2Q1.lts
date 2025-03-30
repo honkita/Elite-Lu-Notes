@@ -1,0 +1,19 @@
+const MaxPhil = 1
+const MaxCoo = 3
+const MaxCola = 2
+
+BUFFCOO(N=3) = COUNTCOO[N],
+COUNTCOO[i:0..N] = (when (i > 0) eat->COUNTCOO[i-1]
+					|refcoo->COUNTCOO[N]
+					).
+
+BUFFCOLA(N=MaxCola) = COUNTCOLA[N],
+COUNTCOLA[i:0..N] = (when (i > 0) drink -> COUNTCOLA[i-1]
+					| refcola -> COUNTCOLA[N]
+					).
+
+PHIL = (think -> PHIL | eatc -> PHIL | drinkc -> PHIL).
+
+SERVANT = (refcoo -> SERVANT | refcola -> SERVANT).
+
+||PHILEAT(N = MaxPhil) = forall[i:1..1](phil[i]:PHIL||SERVANT||BUFFCOLA(2)||BUFFCOO(3)).

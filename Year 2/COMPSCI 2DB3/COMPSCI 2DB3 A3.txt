@@ -1,0 +1,102 @@
+CREATE TABLE Member
+(
+    mid INT GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
+    email VARCHAR(100) NOT NULL UNIQUE,
+    passhash CHAR(64) FOR BIT DATA NOT NULL,
+    name VARCHAR(100) NOT NULL,
+	address CLOB NOT NULL
+);
+
+CREATE TABLE Personal
+(
+    mid INT NOT NULL PRIMARY KEY,
+    FOREIGN KEY(mid) REFERENCES Member
+);
+
+CREATE TABLE Organization
+(
+    mid INT NOT NULL,
+    type VARCHAR(100) NOT NULL,
+    midPersonal INT NOT NULL,
+    FOREIGN KEY(mid) REFERENCES Member,
+    FOREIGN KEY(midPersonal) REFERENCES Personal.mid,
+    PRIMARY KEY(mid, midPersonal),
+);
+
+CREATE TABLE Subscription(
+	mid INT NOT NULL,
+	startyear INT NOT NULL,
+	startmonth INT NOT NULL,
+    FOREIGN KEY(mid) REFERENCES Member,
+	PRIMARY KEY(mid, startyear, startmonth),
+	CHECK(startmonth >= 1 AND startmonth <= 12 AND startyear <= 2023)
+)
+
+CREATE TABLE PrePaid(
+	mid INT NOT NULL,
+	startyear INT NOT NULL,
+	startmonth INT NOT NULL,
+	charges INT NOT NULL,
+FOREIGN KEY(mid, startyear, startmonth) REFERENCES Subscription,
+PRIMARY KEY(mid, startyear, startmonth)
+)
+
+CREATE TABLE LongTerm(
+	mid INT NOT NULL,
+	startyear INT NOT NULL,
+	startmonth INT NOT NULL,
+	tier INT NOT NULL,
+    FOREIGN KEY(mid, startyear, startmonth) REFERENCES Subscription,
+    PRIMARY KEY(mid, startyear, startmonth)
+)
+
+CREATE TABLE Payment(
+	mid INT NOT NULL,
+	startyear INT NOT NULL,
+	startmonth INT NOT NULL,
+	term INT NOT NULL,
+    midPersonal INT NOT NULL REFERENCES Personal,
+    FOREIGN KEY(mid, startyear, startmonth) REFERENCES LongTerm,
+    PRIMARY KEY(mid, startyear, startmonth, term),
+    CHECK(term >= 0)
+)
+
+CREATE TABLE DonorEvent
+(
+    eid INT GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
+    name VARCHAR(100) NOT NULL,
+    date DATE NOT NULL,
+    description CLOB NULL,
+    private BOOLEAN NOT NULL
+);
+
+CREATE TABLE DonorInvite
+(
+    eid INT NOT NULL REFERENCES DonorEvent,
+    mid INT NOT NULL REFERENCES Member,
+    confirmed BOOLEAN NOT NULL,
+    amount INT NOT NULL,
+    referredBy INT NULL,
+    PRIMARY KEY(eid, mid)
+);
+
+CREATE VIEW Referrals AS 
+(
+	SELECT d.eid, d.mid, m.name, d.referredBy AS rid, m2.name AS referredName 
+	FROM DonorInvite d, MEMBER m, MEMBER m2
+	WHERE referredBy IS NOT NULL AND m.mid = d.mid AND m2.mid = d.referredBy
+);
+
+CREATE TABLE Donation
+(
+	eid INT NOT NULL REFERENCES DonorEvent,
+	mid INT NOT NULL,
+	amount INT NOT NULL,
+	attributed INT NULL,
+	FOREIGN KEY (mid) REFERENCES MEMBER,
+	FOREIGN KEY (attributed) REFERENCES MEMBER(mid),
+	PRIMARY KEY(eid, mid),
+	CHECK (mid <> attributed)
+);
+
+

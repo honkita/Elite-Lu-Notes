@@ -1,0 +1,13 @@
+S2 = (a -> S2A | c -> S2B),
+S2A = (c -> S2BD | c -> S2BE),
+S2B = (a -> S2BD | a -> S2BE),
+S2BC = (b -> S2DC), 
+S2BD = (b -> S2DC), 
+S2BE = (b -> S2ED),
+S2BF = (b -> S2ED),
+S2DC = (d -> S2C),
+S2ED = (e -> S2D),
+S2C = (e -> S2 | a -> S2EA),
+S2D = (d -> S2 | c -> S2DB),
+S2EA = (e -> S2A),
+S2DB = (d -> S2B).
